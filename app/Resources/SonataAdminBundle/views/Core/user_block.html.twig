@@ -1,0 +1,10 @@
+{% block user_block %}
+<ul>
+    <li>
+       <a class="floatright" href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+    </li>
+</ul>
+
+{% endblock %}

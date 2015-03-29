@@ -1,0 +1,7 @@
+# Learn more about services, parameters and containers at
+# http://symfony.com/doc/current/book/service_container.html
+
+services:
+    login_handler:
+        class: AppBundle\Service\loginHandler
+        arguments: ['@router', '@doctrine.orm.entity_manager', '@service_container']

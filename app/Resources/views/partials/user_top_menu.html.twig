@@ -1,0 +1,34 @@
+<div class="top-menu">
+    <div class="floatleft">
+        <ul>
+            <li><a href="{{ path('homepage') }}">{{ 'movies' | trans }}</a></li>
+        </ul>
+        <ul>
+            <li><a href="{{ path('genre_list') }}">{{ 'genre' | trans }}</a></li>
+        </ul>
+        <ul>
+            <li><a href="{{ path('person_list') }}">{{ 'persons' | trans }}</a></li>
+        </ul>
+        <ul>
+            <li><a href="{{ path('job_list') }}">{{ 'job' | trans }}</a></li>
+        </ul>
+        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+        <ul>
+            <li><a href="{{ path('import') }}">{{ 'import' | trans }}</a></li>
+        </ul>
+        {% endif %}
+    </div>
+    <div class="floatright">
+        <ul>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="floatright" href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+                <span class="user-name floatright">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |</span>
+            {% else %}
+                <a  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+        </ul>
+
+    </div>
+</div>

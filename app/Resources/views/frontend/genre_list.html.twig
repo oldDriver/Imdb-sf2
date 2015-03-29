@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block topMenu %}
+    {% include 'partials/user_top_menu.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for genre in genres %}
+        <li>
+            <a href="{{ path('movie_genre_list', {genreId: genre.id}) }}">{{ genre.genre }}</a><br>
+          </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

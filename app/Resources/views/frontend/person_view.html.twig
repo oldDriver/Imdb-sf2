@@ -1,0 +1,27 @@
+{% extends 'layout.html.twig' %}
+
+{% block topMenu %}
+    {% include 'partials/user_top_menu.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    {% if not person.photo is empty %}
+        {{ 'person.photo' | trans }}
+    {% endif %}
+    <h1>{{ person.name }}</h1>
+    <h3>{{ person.imdbId }}</h3>
+    <h4>{{ 'jobs' | trans }}</h4>
+    <ul>
+        {% for job in person.jobs %}
+            <li>
+                <a href="{{ path('person_list', {jobId: job.id}) }}">{{ job.job }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+    {% if person.refs|length > 10 %}
+        <h4>{{ 'movies' | trans }}</h4>
+        {% for row in person.refs %}
+            <span>{{ row.movie.title }}&nbsp;({{ row.job.job }})&nbsp;<span><span>{{ row.role }}</span><br>
+        {% endfor %}
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,20 @@
+{% extends 'layout.html.twig' %}
+
+{% block topMenu %}
+    {% include 'partials/user_top_menu.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <div class="form">
+        <h4>{{ 'import.movie' | trans }}</h4>
+        {{ form_start(movieForm, {'attr': {'class': 'form-tag'} }) }}
+        {{ form_widget(movieForm) }}
+        {{ form_end(movieForm) }}
+    </div>
+    <div class="form">
+        <h4>{{ 'import.person' | trans }}</h4>
+        {{ form_start(personForm, {'attr': {'class': 'form-tag'} }) }}
+        {{ form_widget(personForm) }}
+        {{ form_end(personForm) }}
+    </div>
+{% endblock %}

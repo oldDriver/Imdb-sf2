@@ -1,0 +1,12 @@
+{% extends 'layout.html.twig' %}
+
+{% block topMenu %}
+    {% include 'partials/user_top_menu.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    {% if not genre is empty %}
+        <h2>{{ genre.genre }}</h4>
+    {% endif %}
+    {{ grid(grid) }}
+{% endblock %}

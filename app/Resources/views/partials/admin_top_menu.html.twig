@@ -1,0 +1,20 @@
+<div class="top-menu">
+    <div class="floatleft">
+        <ul>
+            <li><a href="{{ path('homepage') }}">Home</a></li>
+        </ul>
+    </div>
+    <div class="floatright">
+        <ul>
+            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                <a class="floatright" href="{{ path('fos_user_security_logout') }}">
+                    {{ 'layout.logout'|trans({}, 'FOSUserBundle') }}
+                </a>
+                <span class="user-name floatright">{{ 'layout.logged_in_as'|trans({'%username%': app.user.username}, 'FOSUserBundle') }} |</span>
+            {% else %}
+                <a  href="{{ path('fos_user_security_login') }}">{{ 'layout.login'|trans({}, 'FOSUserBundle') }}</a>
+            {% endif %}
+        </ul>
+
+    </div>
+</div>

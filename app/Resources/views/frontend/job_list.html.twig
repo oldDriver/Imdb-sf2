@@ -1,0 +1,15 @@
+{% extends 'layout.html.twig' %}
+
+{% block topMenu %}
+    {% include 'partials/user_top_menu.html.twig' %}
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for job in jobs %}
+        <li>
+            <a href="{{ path('person_list', {jobId: job.id}) }}">{{ job.job }}</a>
+        </li>
+        {% endfor %}
+    </ul>
+{% endblock %}

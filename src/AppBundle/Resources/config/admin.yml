@@ -1,0 +1,11 @@
+services:
+    sonata.admin.post:
+        class: AppBundle\Admin\MovieAdmin
+        tags:
+            - { name: sonata.admin, manager_type: orm, group: "Content", label: "Movie" }
+        arguments:
+            - ~
+            - AppBundle\Entity\Movie
+            - ~
+        calls:
+            - [ setTranslationDomain, [AppBundle]]
