@@ -5,6 +5,8 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
+use AppBundle\Util\TextTools;
+
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PersonRepository")
  * @ORM\Table(name="person")
@@ -12,6 +14,11 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class Person
 {
+    /**
+     * @var string
+     */
+    const LINK_LETTER = 'p';
+
     /**
     * @ORM\Id
     * @ORM\GeneratedValue
@@ -69,6 +76,11 @@ class Person
      * @ORM\OneToMany(targetEntity="PersonMovieRef", mappedBy="person")
      */
     protected $refs;
+
+    /**
+     * @var string
+     */
+    protected $permalink;
 
     /**
      * Constructor
@@ -276,5 +288,18 @@ class Person
     public function getRefs()
     {
         return $this->refs;
+    }
+
+    /**
+     * 
+     * @return string
+     */
+    public function getPermalink()
+    {
+        $link = array();
+        $link[] = TextTools::stripText($this->getName());
+        $link[] = self::LINK_LETTER;
+        $link[] = $this->getId();
+        return implode('_', $link);
     }
 }

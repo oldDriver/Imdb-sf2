@@ -20,8 +20,12 @@
     </ul>
     {% if person.refs|length > 10 %}
         <h4>{{ 'movies' | trans }}</h4>
+        <ul>
         {% for row in person.refs %}
-            <span>{{ row.movie.title }}&nbsp;({{ row.job.job }})&nbsp;<span><span>{{ row.role }}</span><br>
+            <li>
+                <a href="{{ path('movie_view', {id: row.movie.id}) }}">{{ row.movie.year }}-{{ row.movie.title }}&nbsp;({{ row.job.job }})&nbsp;{{ row.role }}</a>
+            </li>
         {% endfor %}
+        </ul>
     {% endif %}
 {% endblock %}

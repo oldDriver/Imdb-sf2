@@ -179,4 +179,23 @@ class PublicController extends Controller
             )
         );
     }
+
+    /**
+     * @Route("/{link}", name="permalink")
+     */
+    public function permalinkAction($link)
+    {
+        $link = explode('_', $link);
+        $entity = $link[1];
+        $id = $link[2];
+        switch ($entity) {
+            case Person::LINK_LETTER:
+                return $this->redirectToRoute('person_view', array('id' => $id));
+                break;
+            case Movie::LINK_LETTER:
+            default:
+                return $this->redirectToRoute('movie_view', array('id' => $id));
+                break;
+        }
+    }
 }

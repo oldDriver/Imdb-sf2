@@ -14,6 +14,11 @@ use APY\DataGridBundle\Grid\Mapping as GRID;
  */
 class Movie
 {
+    /**
+     * @var string
+     */
+    const LINK_LETTER = 'm';
+    
     const TYPE_CINEMA     = 1;
     const TYPE_TELEVISION = 2;
     const TYPE_THEATRE    = 3;
