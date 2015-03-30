@@ -110,7 +110,7 @@ class ImdbMovieCastPage extends ImdbMoviePage
                         }
     
                     }
-                    if (!empty($person['name'])) {
+                    if (!empty($person['name']) && !empty($person['imdbId'])) {
                         $result[] = $person;
                     }
                 }
@@ -152,7 +152,9 @@ class ImdbMovieCastPage extends ImdbMoviePage
                   $person['credit'] = TextTools::cleanString($field->textContent);
               }
           }
-          $result[] = $person;
+          if (!empty($person['name']) && !empty($person['imdbId'])) {
+              $result[] = $person;
+          }
       }
       return $result;
   }  
@@ -162,135 +164,133 @@ class ImdbMovieCastPage extends ImdbMoviePage
         return $this->parseBlock('Directedby');
     }
 
-  public function getWritingCredits()
-  {
-    return $this->parseBlock('WritingCredits');
-  
-  }
+    public function getWritingCredits()
+    {
+        return $this->parseBlock('WritingCredits');
+    }
 
-  
-  public function getProducedBy()
-  {
-    return $this->parseBlock('Producedby');
-  }
+    public function getProducedBy()
+    {
+        return $this->parseBlock('Producedby');
+    }
 
-  public function getMusicBy()
-  {
-    return $this->parseBlock('Musicby');
-  }
+    public function getMusicBy()
+    {
+        return $this->parseBlock('Musicby');
+    }
 
-  public function getCameraman()
-  {
-    return $this->parseBlock('Cinematographyby');
-  }
+    public function getCameraman()
+    {
+        return $this->parseBlock('Cinematographyby');
+    }
 
-  public function getCinematographyBy()
-  {
-    return $this->parseBlock('Cinematographyby');
-  }
+    public function getCinematographyBy()
+    {
+        return $this->parseBlock('Cinematographyby');
+    }
 
-  public function getEditingBy()
-  {
-    return $this->parseBlock('FilmEditingby');
-  }
+    public function getEditingBy()
+    {
+        return $this->parseBlock('FilmEditingby');
+    }
 
-  public function getCaster()
-  {
-    return $this->parseBlock('CastingBy');
-  }
+    public function getCaster()
+    {
+        return $this->parseBlock('CastingBy');
+    }
 
-  public function getCastingBy()
-  {
-    return $this->parseBlock('CastingBy');
-  }
+    public function getCastingBy()
+    {
+        return $this->parseBlock('CastingBy');
+    }
 
-  public function getProductionDesignBy()
-  {
-    return $this->parseBlock('ProductionDesignby');
-  }
+    public function getProductionDesignBy()
+    {
+        return $this->parseBlock('ProductionDesignby');
+    }
 
-  public function getCostumeDesignBy()
-  {
-    return $this->parseBlock('CostumeDesignby');
-  }
+    public function getCostumeDesignBy()
+    {
+        return $this->parseBlock('CostumeDesignby');
+    }
 
-  public function getMakeupDepartment()
-  {
-    return $this->parseBlock('MakeupDepartment');
-  }
+    public function getMakeupDepartment()
+    {
+        return $this->parseBlock('MakeupDepartment');
+    }
 
-  public function getProductionManagement()
-  {
-    return $this->parseBlock('ProductionManagement');
-  }
+    public function getProductionManagement()
+    {
+        return $this->parseBlock('ProductionManagement');
+    }
 
-  public function getAssistantDirector()
-  {
-    return $this->parseBlock('SecondUnitDirectororAssistantDirector');
-  }
+    public function getAssistantDirector()
+    {
+        return $this->parseBlock('SecondUnitDirectororAssistantDirector');
+    }
 
-  public function getArtDepartment()
-  {
-    return $this->parseBlock('ArtDepartment');
-  }
+    public function getArtDepartment()
+    {
+        return $this->parseBlock('ArtDepartment');
+    }
 
-  public function getSoundDepartment()
-  {
-    return $this->parseBlock('SoundDepartment');
-  }
+    public function getSoundDepartment()
+    {
+        return $this->parseBlock('SoundDepartment');
+    }
 
-  public function getSpecialEffectsBy()
-  {
-    return $this->parseBlock('SpecialEffectsby');
-  }
+    public function getSpecialEffectsBy()
+    {
+        return $this->parseBlock('SpecialEffectsby');
+    }
 
-  public function getVisualEffectsBy()
-  {
-    return $this->parseBlock('VisualEffectsby');
-  }
+    public function getVisualEffectsBy()
+    {
+        return $this->parseBlock('VisualEffectsby');
+    }
 
-  public function getStunts()
-  {
-    return $this->parseBlock('Stunts');
-  }
+    public function getStunts()
+    {
+        return $this->parseBlock('Stunts');
+    }
 
-  public function getCameraDepartment()
-  {
-    return $this->parseBlock('CameraandElectricalDepartment');
-  }
+    public function getCameraDepartment()
+    {
+        return $this->parseBlock('CameraandElectricalDepartment');
+    }
 
-  public function getCastingDepartment()
-  {
-    return $this->parseBlock('CastingDepartment');
-  }
+    public function getCastingDepartment()
+    {
+        return $this->parseBlock('CastingDepartment');
+    }
 
-  public function getEditorialDepartment()
-  {
-    return $this->parseBlock('EditorialDepartment');
-  }
+    public function getEditorialDepartment()
+    {
+        return $this->parseBlock('EditorialDepartment');
+    }
 
-  public function getCostumeDepartment()
-  {
-    return $this->parseBlock('CostumeandWardrobeDepartment');
-  }
+    public function getCostumeDepartment()
+    {
+        return $this->parseBlock('CostumeandWardrobeDepartment');
+    }
 
-  public function getMusicDepartment()
-  {
-    return $this->parseBlock('MusicDepartment');
-  }
+    public function getMusicDepartment()
+    {
+        return $this->parseBlock('MusicDepartment');
+    }
 
-  public function getTransportationDepartment()
-  {
-    return $this->parseBlock('TransportationDepartment');
-  }
+    public function getTransportationDepartment()
+    {
+        return $this->parseBlock('TransportationDepartment');
+    }
 
-  public function getOtherCrew()
-  {
-    return $this->parseBlock('Othercrew');
-  }
+    public function getOtherCrew()
+    {
+        return $this->parseBlock('Othercrew');
+    }
 
-  public function getThanks()
-  {
-    return $this->parseBlock('Thanks');
-  }
+    public function getThanks()
+    {
+        return $this->parseBlock('Thanks');
+    }
 }
