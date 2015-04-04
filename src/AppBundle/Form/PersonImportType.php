@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class PersonType extends AbstractType
+class PersonImportType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -14,7 +14,7 @@ class PersonType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imdbId', 'text')
+            ->add('imdbId', new PersonImdbType())
             ->add('save', 'submit', array('label' => 'Import Person'))
             ;
     }
@@ -33,6 +33,6 @@ class PersonType extends AbstractType
 
     public function getName()
     {
-        return 'person';
+        return 'person_import';
     }
 }

@@ -5,7 +5,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class MovieType extends AbstractType
+class PersonImdbType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -13,10 +13,7 @@ class MovieType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('imdbId', 'text')
-            ->add('save', 'submit', array('label' => 'Import Movie'))
-            ;
+        $builder->add('imdbId', 'text');
     }
 
     /**
@@ -26,13 +23,13 @@ class MovieType extends AbstractType
     {
         $resolver->setDefaults(
             array(
-                'data_class' => 'AppBundle\Entity\Movie'
+                'data_class' => 'AppBundle\Entity\PersonImdb'
             )
         );
     }
 
     public function getName()
     {
-        return 'movie';
+        return 'person_imdb';
     }
 }

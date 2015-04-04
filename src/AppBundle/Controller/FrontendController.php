@@ -8,21 +8,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Movie;
 use AppBundle\Entity\Person;
 
-use AppBundle\Form\MovieType;
-use AppBundle\Form\PersonType;
-
-// use AppBundle\Util\Imdb\ImdbMoviePage;
-// use AppBundle\Util\Imdb\ImdbMovieCastPage;
-// use AppBundle\Util\Imdb\ImdbPersonPage;
-// use AppBundle\Util\Imdb\ImdbAbstractPage;
-// use AppBundle\Util\Imdb\ImdbPageInterface;
-// use AppBundle\Util\Imdb\ImdbPersonPageInterface;
-
 use APY\DataGridBundle\Grid\Source\Entity;
 use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
+use AppBundle\Form\MovieImportType;
+use AppBundle\Form\PersonImportType;
 
-class PublicController extends Controller
+class FrontendController extends Controller
 {
     /**
     * @Route("/", name="homepage")
@@ -147,9 +139,9 @@ class PublicController extends Controller
     {
         $request = $this->getRequest();
         $movie = new Movie();
-        $movieForm = $this->createForm(new MovieType(), $movie);
+        $movieForm = $this->createForm(new MovieImportType(), $movie);
         $person = new Person();
-        $personForm = $this->createForm(new PersonType(), $person);
+        $personForm = $this->createForm(new PersonImportType(), $person);
         // On submit
         $movieForm->handleRequest($request);
         if ($movieForm->isSubmitted() && $movieForm->isValid()) {
@@ -178,24 +170,5 @@ class PublicController extends Controller
                 'personForm' => $personForm->createView(),
             )
         );
-    }
-
-    /**
-     * @Route("/{link}", name="permalink")
-     */
-    public function permalinkAction($link)
-    {
-        $link = explode('_', $link);
-        $entity = $link[1];
-        $id = $link[2];
-        switch ($entity) {
-            case Person::LINK_LETTER:
-                return $this->redirectToRoute('person_view', array('id' => $id));
-                break;
-            case Movie::LINK_LETTER:
-            default:
-                return $this->redirectToRoute('movie_view', array('id' => $id));
-                break;
-        }
     }
 }

@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validation\Constraints AS Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 use AppBundle\Util\TextTools;
@@ -27,11 +28,6 @@ class Person
     protected $id;
 
     /**
-    * @ORM\Column(type="integer")
-    */
-    protected $imdbId;
-
-    /**
     * @ORM\Column(type="string")
     */
     protected $name;
@@ -50,6 +46,12 @@ class Person
     * @ORM\Column(type="date", nullable=true)
     */
     protected $deathAt;
+
+    /**
+     * @ORM\OneToMany(targetEntity="PersonImdb", mappedBy="person")
+     * )
+     */
+    protected $imdbIds;
 
     /**
     * @ORM\ManyToMany(
@@ -82,6 +84,20 @@ class Person
      */
     protected $permalink;
 
+    protected $imdbId;
+    
+    
+    public function getImdbId()
+    {
+        return $this->imdbId;
+    }
+    
+    public function setImdbId(PersonImdb $imdbId = null)
+    {
+        $this->imdbId = $imdbId;
+    }    
+    
+    
     /**
      * Constructor
      */
@@ -89,6 +105,7 @@ class Person
     {
         $this->jobs = new \Doctrine\Common\Collections\ArrayCollection();
         $this->refs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->imdbIds = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
@@ -99,29 +116,6 @@ class Person
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set imdbId
-     *
-     * @param integer $imdbId
-     * @return Person
-     */
-    public function setImdbId($imdbId)
-    {
-        $this->imdbId = $imdbId;
-
-        return $this;
-    }
-
-    /**
-     * Get imdbId
-     *
-     * @return integer 
-     */
-    public function getImdbId()
-    {
-        return $this->imdbId;
     }
 
     /**
@@ -301,5 +295,38 @@ class Person
         $link[] = self::LINK_LETTER;
         $link[] = $this->getId();
         return implode('_', $link);
+    }
+
+    /**
+     * Add imdbIds
+     *
+     * @param \AppBundle\Entity\PersonImdb $imdbIds
+     * @return Person
+     */
+    public function addImdbId(\AppBundle\Entity\PersonImdb $imdbIds)
+    {
+        $this->imdbIds[] = $imdbIds;
+
+        return $this;
+    }
+
+    /**
+     * Remove imdbIds
+     *
+     * @param \AppBundle\Entity\PersonImdb $imdbIds
+     */
+    public function removeImdbId(\AppBundle\Entity\PersonImdb $imdbIds)
+    {
+        $this->imdbIds->removeElement($imdbIds);
+    }
+
+    /**
+     * Get imdbIds
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImdbIds()
+    {
+        return $this->imdbIds;
     }
 }
