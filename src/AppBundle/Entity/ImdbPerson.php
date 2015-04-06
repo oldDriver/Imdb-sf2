@@ -21,7 +21,7 @@ class ImdbPerson
     protected $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Person")
+     * @ORM\ManyToOne(targetEntity="Person", inversedBy="imdbIds")
      * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
      **/
     protected $person;

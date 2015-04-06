@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" xmlns:jms="urn:jms:translation" version="1.2">
+  <file date="2015-04-06T19:15:40Z" source-language="en" target-language="en" datatype="plaintext" original="not.available">
+    <header>
+      <tool tool-id="JMSTranslationBundle" tool-name="JMSTranslationBundle" tool-version="1.1.0-DEV"/>
+      <note>The source node in most cases contains the sample message as written by the developer. If it looks like a dot-delimitted string such as "form.label.firstname", then the developer has not provided a default message.</note>
+    </header>
+    <body>
+      <!-- Imdb Block -->
+      <trans-unit id="imdb.id">
+        <source>imdb.id</source>
+        <target state="new">IMDB ID</target>
+      </trans-unit>
+      <trans-unit id="imdb.movie.import">
+        <source>imdb.movie.import</source>
+        <target state="new">Import Movie</target>
+      </trans-unit>
+      <trans-unit id="imdb.person.import">
+        <source>imdb.person.import</source>
+        <target state="new">Import Person</target>
+      </trans-unit>
+      <trans-unit id="movie.title">
+        <source>movie.title</source>
+        <target state="new">Movie Title</target>
+      </trans-unit>
+      <trans-unit id="movie.list">
+        <source>movie.list</source>
+        <target state="new">Movies</target>
+      </trans-unit>
+      <!-- Movie block -->
+      <trans-unit id="movie.title">
+        <source>movie.title</source>
+        <target state="new">Movie title</target>
+      </trans-unit>
+      <trans-unit id="movie.list">
+        <source>movie.list</source>
+        <target state="new">Movies</target>
+      </trans-unit>
+      <!-- Genre Block -->
+      <trans-unit id="genre.list">
+        <source>genre.list</source>
+        <target state="new">Genres</target>
+      </trans-unit>
+      <!-- Person Block -->
+      <trans-unit id="person.list">
+        <source>person.list</source>
+        <target state="new">Persons</target>
+      </trans-unit>
+      <!-- Job block -->
+      <trans-unit id="job.list">
+        <source>job.list</source>
+        <target state="new">Jobs</target>
+      </trans-unit>
+      <!-- Common block -->
+      <trans-unit id="action.import">
+        <source>action.import</source>
+        <target state="new">Import</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

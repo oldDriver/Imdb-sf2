@@ -22,6 +22,7 @@ class AppKernel extends Kernel
             // Annotations for sevices
             new JMS\DiExtraBundle\JMSDiExtraBundle($this),
             new JMS\AopBundle\JMSAopBundle(),
+            new JMS\TranslationBundle\JMSTranslationBundle(),
 
             new APY\DataGridBundle\APYDataGridBundle(),
             

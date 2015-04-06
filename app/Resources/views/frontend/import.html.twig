@@ -6,13 +6,13 @@
 
 {% block content %}
     <div class="form">
-        <h4>{{ 'import.movie' | trans }}</h4>
+        <h4>{{ 'imdb.movie.import' | trans }}</h4>
         {{ form_start(movieForm, {'attr': {'class': 'form-tag'} }) }}
         {{ form_widget(movieForm) }}
         {{ form_end(movieForm) }}
     </div>
     <div class="form">
-        <h4>{{ 'import.person' | trans }}</h4>
+        <h4>{{ 'imdb.person.import' | trans }}</h4>
         {{ form_start(personForm, {'attr': {'class': 'form-tag'} }) }}
         {{ form_widget(personForm) }}
         {{ form_end(personForm) }}

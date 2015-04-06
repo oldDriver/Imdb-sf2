@@ -14,8 +14,8 @@ class MovieImportType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('imdbId', 'text')
-            ->add('save', 'submit', array('label' => 'Import Movie'))
+            ->add('imdbId', 'text', array('label' => 'imdb.id'))
+            ->add('save', 'submit', array('label' => 'action.import'))
             ;
     }
 
