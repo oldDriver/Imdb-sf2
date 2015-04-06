@@ -3,6 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints AS Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 
@@ -59,6 +60,7 @@ class Movie
 
     /**
     * @ORM\Column(type="integer")
+    * @Assert\NotNull()
     */
     protected $imdbId;
 
@@ -73,9 +75,14 @@ class Movie
     protected $title;
 
     /**
-    * @ORM\Column(type="string", nullable = true)
-    */
+     * @ORM\Column(type="string", nullable = true)
+     */
     protected $poster;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    protected $queue = 0;
 
     /**
     * @ORM\ManyToMany(targetEntity="Genre", inversedBy="movies")
@@ -97,6 +104,7 @@ class Movie
     public function __construct()
     {
         $this->genres = new ArrayCollection();
+        $this->refs = new ArrayCollection();
     }
 
     /**
@@ -273,5 +281,28 @@ class Movie
     public function getRefs()
     {
         return $this->refs;
+    }
+
+    /**
+     * Set queue
+     *
+     * @param boolean $queue
+     * @return Movie
+     */
+    public function setQueue($queue)
+    {
+        $this->queue = $queue;
+
+        return $this;
+    }
+
+    /**
+     * Get queue
+     *
+     * @return boolean 
+     */
+    public function getQueue()
+    {
+        return $this->queue;
     }
 }

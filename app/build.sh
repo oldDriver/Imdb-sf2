@@ -15,6 +15,7 @@ then
         php app/console fos:user:create admin admin@example.com admin --super-admin
         php app/console fos:user:create user user@example.com user
         php app/console doctrine:generate:entities AppBundle/Entity --no-backup
+        
     fi
     if [ $ENV = "dev" ]; then
         rm -rf cache/*
@@ -24,3 +25,5 @@ then
         composer update
     fi
 fi
+php app/console doctrine:mapping:info
+php app/console assetic:dump

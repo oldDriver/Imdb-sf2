@@ -13,6 +13,8 @@ use APY\DataGridBundle\Grid\Action\RowAction;
 use APY\DataGridBundle\Grid\Column\ActionsColumn;
 use AppBundle\Form\MovieImportType;
 use AppBundle\Form\PersonImportType;
+use AppBundle\Form\ImdbPersonType;
+use AppBundle\Entity\ImdbPerson;
 
 class FrontendController extends Controller
 {
@@ -140,12 +142,12 @@ class FrontendController extends Controller
         $request = $this->getRequest();
         $movie = new Movie();
         $movieForm = $this->createForm(new MovieImportType(), $movie);
-        $person = new Person();
-        $personForm = $this->createForm(new PersonImportType(), $person);
+        $person = new ImdbPerson();
+        $personForm = $this->createForm(new ImdbPersonType(), $person);
         // On submit
         $movieForm->handleRequest($request);
         if ($movieForm->isSubmitted() && $movieForm->isValid()) {
-            $id = $this->get('imdb.movie')->importOneMovie($movieForm['imdbId']->getData());
+            $id = $this->get('imdb.movie')->importOneMovie($movieForm['imdbId']->getData(), false);
             return $this->redirect($this->generateUrl(
                 'movie_view',
                 array('id' => $id)

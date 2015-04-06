@@ -3,7 +3,7 @@ namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections\ArrayCollection;
-use Symfony\Component\Validation\Constraints AS Assert;
+use Symfony\Component\Validator\Constraints AS Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
 use AppBundle\Util\TextTools;
@@ -29,6 +29,7 @@ class Person
 
     /**
     * @ORM\Column(type="string")
+    * @Assert\NotBlank()
     */
     protected $name;
 
@@ -39,16 +40,18 @@ class Person
 
     /**
     * @ORM\Column(type="date", nullable=true)
+    * @Assert\Date()
     */
     protected $birthAt;
 
     /**
     * @ORM\Column(type="date", nullable=true)
+    * @Assert\Date()
     */
     protected $deathAt;
 
     /**
-     * @ORM\OneToMany(targetEntity="PersonImdb", mappedBy="person")
+     * @ORM\OneToMany(targetEntity="ImdbPerson", mappedBy="person")
      * )
      */
     protected $imdbIds;
@@ -92,7 +95,7 @@ class Person
         return $this->imdbId;
     }
     
-    public function setImdbId(PersonImdb $imdbId = null)
+    public function setImdbId(ImdbPerson $imdbId = null)
     {
         $this->imdbId = $imdbId;
     }    
@@ -303,7 +306,7 @@ class Person
      * @param \AppBundle\Entity\PersonImdb $imdbIds
      * @return Person
      */
-    public function addImdbId(\AppBundle\Entity\PersonImdb $imdbIds)
+    public function addImdbId(\AppBundle\Entity\ImdbPerson $imdbIds)
     {
         $this->imdbIds[] = $imdbIds;
 
@@ -315,7 +318,7 @@ class Person
      *
      * @param \AppBundle\Entity\PersonImdb $imdbIds
      */
-    public function removeImdbId(\AppBundle\Entity\PersonImdb $imdbIds)
+    public function removeImdbId(\AppBundle\Entity\ImdbPerson $imdbIds)
     {
         $this->imdbIds->removeElement($imdbIds);
     }

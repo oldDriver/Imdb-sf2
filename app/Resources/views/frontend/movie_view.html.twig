@@ -18,7 +18,7 @@
     <ul>
     {% for row in movie.refs %}
         <li>
-            <a href="{{ path('permalink', {link: row.person.permalink}) }}">{{ row.person.name }}&nbsp;({{ row.job.job }})&nbsp;{{ row.role }}</a>
+            <a href="{{ path('person_view', {id: row.person.id}) }}">{{ row.person.name }}&nbsp;({{ row.job.job }})&nbsp;{{ row.role }}</a>
         </li>
     {% endfor %}
     </ul>

@@ -9,7 +9,7 @@ class MovieRepository extends EntityRepository
   {
     return $this->getEntityManager()
     ->createQuery(
-        'SELECT m.imdbId FROM AppBundle:Movie m ORDER BY m.imdbId DESC'
+        'SELECT m.imdbId FROM AppBundle:Movie m WHERE m.queue = 1 ORDER BY m.imdbId DESC'
     )
     ->setMaxResults(1)
     ->getScalarResult();

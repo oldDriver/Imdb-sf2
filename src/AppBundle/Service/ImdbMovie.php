@@ -17,6 +17,8 @@ use AppBundle\Entity\Genre;
 use AppBundle\Entity\Person;
 use AppBundle\Entity\Job;
 use AppBundle\Entity\PersonMovieRef;
+use AppBundle\Rntity\ImdbPerson;
+use AppBundle\AppBundle;
 
 /**
  * @DI\Service("imdb.movie", public=true)
@@ -43,6 +45,11 @@ class ImdbMovie
      * @var \AppBundle\Entity\PersonRepository
      */
     private $repoPerson;
+
+    /**
+     * @var \AppBundle\Entity\ImdbPersonRepository
+     */
+    private $repoImdb;
 
     /**
      * @var \AppBundle\Entity\GenreRepository
@@ -105,6 +112,11 @@ class ImdbMovie
     private $jobOther;
 
     /**
+     * @var AppBundle\Util\Imdb\ImdbPersonPage
+     */
+    private $imdbPerson;
+
+    /**
      * @DI\InjectParams({
      *     "em" = @DI\Inject("doctrine.orm.entity_manager"),
      *     "container" = @DI\Inject("service_container")
@@ -124,6 +136,7 @@ class ImdbMovie
         $this->repoGenre = $this->em->getRepository('AppBundle:Genre');
         $this->repoJob = $this->em->getRepository('AppBundle:Job');
         $this->repoRef = $this->em->getRepository('AppBundle:PersonMovieRef');
+        $this->repoImdb = $this->em->getRepository('AppBundle:ImdbPerson');
         
         $this->jobActor = $this->container->get('job.service')->getJob(Job::ACTOR_MALE);
         $this->jobActress = $this->container->get('job.service')->getJob(Job::ACTOR_FEMALE);
@@ -151,7 +164,7 @@ class ImdbMovie
      * @param number $imdbId
      * @return boolean
      */
-    public function importOneMovie($imdbId)
+    public function importOneMovie($imdbId, $queue = true)
     {
         $imdbMovie = new ImdbMoviePage();
         $imdbMovie->setId($imdbId);
@@ -178,6 +191,7 @@ class ImdbMovie
                     $movie->addGenre($genre);
                 }
             }
+            $movie->setQueue($queue);
             $this->em->persist($movie);
             $this->em->flush();
             // Clear refs
@@ -196,19 +210,9 @@ class ImdbMovie
                 if (empty($actor['imdbId'])) {
                     continue;
                 }
-                $person = $this->repoPerson->findOneBy(array('imdbId' => $actor['imdbId']));
-                if (empty($person)) {
-                    $person = new Person();
-                }
-                $imdbPerson = new ImdbPersonPage();
-                $imdbPerson->setId($actor['imdbId']);
-                $person->setImdbId($actor['imdbId']);
-                $person->setName($imdbPerson->getName());
-                $person->setBirthAt($imdbPerson->getDob());
-                $person->setDeathAt($imdbPerson->getDod());
-                $person->setPhoto($imdbPerson->getPhoto());
+                $person = $this->checkPersonByImdb($imdbId);
                 $person->clearJobs();
-                $jobs = $imdbPerson->getJobs();
+                $jobs = $this->imdbPerson->getJobs();
                 if (in_array(Job::ACTOR_FEMALE, $jobs)) {
                     $movieJob = $this->jobActress;
                 } else {
@@ -301,19 +305,9 @@ class ImdbMovie
      */
     public function updatePerson($imdbId)
     {
-        $person = $this->repoPerson->findOneBy(array('imdbId' => $imdbId));
-        if (empty($person)) {
-            $person = new Person();
-        }
-        $imdbPerson = new ImdbPersonPage();
-        $imdbPerson->setId($imdbId);
-        $person->setImdbId($imdbId);
-        $person->setName($imdbPerson->getName());
-        $person->setBirthAt($imdbPerson->getDob());
-        $person->setDeathAt($imdbPerson->getDod());
-        $person->setPhoto($imdbPerson->getPhoto());
+        $person = $this->checkPersonByImdb($imdbId);
         $person->clearJobs();
-        $jobs = $imdbPerson->getJobs();
+        $jobs = $this->imdbPerson->getJobs();
         foreach ($jobs as $text) {
             $job = $this->repoJob->findOneBy(array('job' => $text));
             if (empty($job)) {
@@ -326,6 +320,34 @@ class ImdbMovie
         }
         $this->em->persist($person);
         $this->em->flush();
+        return $person;
+    }
+
+    private function checkPersonByImdb($imdbId)
+    {
+        $personImdb = $this->repoImdb->findOneBy(array('imdbId' => $imdbId));
+        $this->imdbPerson = new ImdbPersonPage();
+        $this->imdbPerson->setId($imdbId);
+        if (empty($personImdb)) {
+            $person = new Person();
+            $person->setName($this->imdbPerson->getName());
+            $person->setBirthAt($this->imdbPerson->getDob());
+            $person->setDeathAt($this->imdbPerson->getDod());
+            $person->setPhoto($this->imdbPerson->getPhoto());
+        
+            $this->em->persist($person);
+            $this->em->flush();
+            $personImdb = new \AppBundle\Entity\ImdbPerson();
+            $personImdb->setPerson($person);
+            $personImdb->setImdbId($imdbId);
+            $this->em->persist($personImdb);
+        } else {
+            $person = $personImdb->getPerson();
+            $person->setName($this->imdbPerson->getName());
+            $person->setBirthAt($this->imdbPerson->getDob());
+            $person->setDeathAt($this->imdbPerson->getDod());
+            $person->setPhoto($this->imdbPerson->getPhoto());
+        }
         return $person;
     }
 }

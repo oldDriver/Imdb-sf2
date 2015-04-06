@@ -6,10 +6,12 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass="AppBundle\Entity\PersonImdbRepository")
- * @ORM\Table(name="person_imdb")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\ImdbPersonRepository")
+ * @ORM\Table(name="person_imdb", 
+ *      uniqueConstraints={@ORM\UniqueConstraint(name="imdb_person_unique",columns={"imdbId"})}
+ * )
  */
-class PersonImdb
+class ImdbPerson
 {
     /**
      * @ORM\Id
@@ -25,7 +27,9 @@ class PersonImdb
     protected $person;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(
+     *     type="integer"
+     * )
      * @Assert\NotBlank()
      */
     protected $imdbId;
@@ -44,7 +48,7 @@ class PersonImdb
      * Set imdbId
      *
      * @param integer $imdbId
-     * @return PersonImdb
+     * @return ImdbPerson
      */
     public function setImdbId($imdbId)
     {
@@ -67,7 +71,7 @@ class PersonImdb
      * Set person
      *
      * @param \AppBundle\Entity\Person $person
-     * @return PersonImdb
+     * @return ImdbPerson
      */
     public function setPerson(\AppBundle\Entity\Person $person = null)
     {

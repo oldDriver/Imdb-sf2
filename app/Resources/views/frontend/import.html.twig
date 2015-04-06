@@ -14,7 +14,7 @@
     <div class="form">
         <h4>{{ 'import.person' | trans }}</h4>
         {{ form_start(personForm, {'attr': {'class': 'form-tag'} }) }}
-        {{ form_widget(personForm['imdbId']) }}
+        {{ form_widget(personForm) }}
         {{ form_end(personForm) }}
     </div>
 {% endblock %}
