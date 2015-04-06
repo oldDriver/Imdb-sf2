@@ -210,7 +210,7 @@ class ImdbMovie
                 if (empty($actor['imdbId'])) {
                     continue;
                 }
-                $person = $this->checkPersonByImdb($imdbId);
+                $person = $this->checkPersonByImdb($actor['imdbId']);
                 $person->clearJobs();
                 $jobs = $this->imdbPerson->getJobs();
                 if (in_array(Job::ACTOR_FEMALE, $jobs)) {
