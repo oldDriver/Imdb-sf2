@@ -12,4 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class PersonRepository extends EntityRepository
 {
+    public function testSingle($name = 'A')
+    {
+        /**
+         * Entity manager
+         */
+        $em = $this->getEntityManager();
+        /**
+         * Query builder
+        */
+        $qb = $em->createQueryBuilder();
+        /**
+         * Create query
+        */
+        $qb
+        ->select('Person')
+        ->from('AppBundle:Person', 'Person')
+        ->where(
+            $qb->expr()
+            ->like('Person.name', ':name'))
+            ->setParameter('name', $name)
+        ;
+        $query = $qb->getQuery();
+    
+        return $query->getResult();
+    }
+    
 }

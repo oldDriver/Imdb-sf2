@@ -11,19 +11,19 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class PersonMovieRef
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   */
-  protected $id;
+    /**
+    * @ORM\Id
+    * @ORM\GeneratedValue
+    * @ORM\Column(type="integer")
+    */
+    protected $id;
 
-  /**
-   * @ORM\ManyToOne(targetEntity="Person", inversedBy="refs")
-   * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
-   **/
-  private $person;
-  
+    /**
+    * @ORM\ManyToOne(targetEntity="Person", inversedBy="refs")
+    * @ORM\JoinColumn(name="person_id", referencedColumnName="id")
+    **/
+    private $person;
+
   /**
    * @ORM\ManyToOne(targetEntity="Job")
    * @ORM\JoinColumn(name="job_id", referencedColumnName="id")

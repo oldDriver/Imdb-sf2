@@ -66,11 +66,13 @@ class Movie
 
     /**
     * @ORM\Column(type="integer")
+    * @GRID\Column(title="movie.year", type="text")
     */
     protected $year;
 
     /**
     * @ORM\Column(type="string")
+    * @GRID\Column(title="movie.title", type="text")
     */
     protected $title;
 

@@ -271,6 +271,7 @@ class ImdbMovie
         $cast+= $page->getCameraDepartment();
         $cast+= $page->getCameraman();
         $cast+= $page->getCastingBy();
+        echo '<pre>'; print_r($cast);
         $this->addJobCast($movie, $this->jobOther, $cast);
         return true;
     }

@@ -11,22 +11,23 @@ use Doctrine\Common\Collections\ArrayCollection;
  */
 class Genre
 {
-  /**
-   * @ORM\Id
-   * @ORM\GeneratedValue
-   * @ORM\Column(type="integer")
-   */
-  protected $id;
+    /**
+    * @ORM\Id
+    * @ORM\GeneratedValue
+    * @ORM\Column(type="integer")
+    */
+    protected $id;
 
-  /**
-   * @ORM\Column(type="string")
-   */
-  protected $genre;
+    /**
+    * @ORM\Column(type="string")
+    */
+    protected $genre;
 
-  /**
-   * @ORM\ManyToMany(targetEntity="Movie", mappedBy="genres")
-   */
-  protected $movies;
+    /**
+     * @ORM\ManyToMany(targetEntity="Movie", mappedBy="genres")
+     */
+    protected $movies;
+
     /**
      * Constructor
      */

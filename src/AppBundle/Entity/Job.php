@@ -78,7 +78,7 @@ class Job
      */
     public function __construct()
     {
-        $this->persons = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->persons = new ArrayCollection();
     }
 
     /**

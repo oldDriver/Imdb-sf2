@@ -9,7 +9,14 @@
         {{ 'person.photo' | trans }}
     {% endif %}
     <h1>{{ person.name }}</h1>
-    <h3>{{ person.imdbId }}</h3>
+    <h3>IMDB</h3>
+    <ul>
+        {% for imdb in person.imdbIds %}
+            <li>
+                {{ imdb.imdbId }}
+            </li>
+        {% endfor %}
+    </ul>
     <h4>{{ 'jobs' | trans }}</h4>
     <ul>
         {% for job in person.jobs %}

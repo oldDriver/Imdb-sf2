@@ -39,7 +39,7 @@ class FrontendController extends Controller
         $grid = $this->get('grid');
         $grid->setSource($source);
         $grid->hideColumns(array('id', 'imdbId'));
-        $rowView = new RowAction('View', 'movie_view');
+        $rowView = new RowAction('movie.view', 'movie_view');
         $rowView->setRouteParametersMapping('id');
         $grid->addRowAction($rowView);
         return $grid->getGridResponse(
@@ -170,6 +170,30 @@ class FrontendController extends Controller
             array(
                 'movieForm' => $movieForm->createView(),
                 'personForm' => $personForm->createView(),
+            )
+        );
+    }
+
+    /**
+     * This is the page for best practice in the Doctrine
+     * @Route("/doctrine", name="doctrine")
+     */
+    public function doctrineAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+        /**
+         * 1. Always write a DQL statement for querying your object models
+         */
+        $jobs = $em->getRepository('AppBundle:Job')->findAll();
+        
+        
+        
+        
+        $persons = $em->getRepository('AppBundle:Person')->testSingle();
+        return $this->render(
+            'frontend/doctrine.html.twig',
+            array(
+                
             )
         );
     }

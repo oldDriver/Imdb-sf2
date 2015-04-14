@@ -6,7 +6,11 @@
 
 {% block content %}
     <h1>{{ movie.title }}</h1>
-    <h3>{{ movie.imdbId }}</h3>
+    <h3>IMBD ID</h3>
+    <ul>
+        <li>{{ movie.imdbId }}</li>
+    </ul>
+    <h3>Genre</h3>
     <ul>
         {% for row in movie.genres %}
             <li>

@@ -6,8 +6,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Validator\Constraints AS Assert;
 use APY\DataGridBundle\Grid\Mapping as GRID;
 
-use AppBundle\Util\TextTools;
-
 /**
  * @ORM\Entity(repositoryClass="AppBundle\Entity\PersonRepository")
  * @ORM\Table(name="person")
@@ -15,11 +13,6 @@ use AppBundle\Util\TextTools;
  */
 class Person
 {
-    /**
-     * @var string
-     */
-    const LINK_LETTER = 'p';
-
     /**
     * @ORM\Id
     * @ORM\GeneratedValue
@@ -82,25 +75,6 @@ class Person
      */
     protected $refs;
 
-    /**
-     * @var string
-     */
-    protected $permalink;
-
-    protected $imdbId;
-    
-    
-    public function getImdbId()
-    {
-        return $this->imdbId;
-    }
-    
-    public function setImdbId(ImdbPerson $imdbId = null)
-    {
-        $this->imdbId = $imdbId;
-    }    
-    
-    
     /**
      * Constructor
      */
