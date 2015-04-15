@@ -1,0 +1,14 @@
+#export DISPLAY=:99.0
+#java -jar /usr/lib/selenium/selenium-server-standalone-2.35.0.jar > /dev/null &
+#sleep 5
+
+#xvfb-run --server-num=99 phpunit --group Caster www/test/phpunit/BaseFunctionalCase.php
+#phpunit --group Caster www/test/phpunit/BaseFunctionalCase.php
+phpunit www/test/phpunit/UnitTests.php
+
+
+export DISPLAY=:99.0
+java -jar /usr/lib/selenium/selenium-server-standalone-2.35.0.jar > /dev/null &
+sleep 5
+
+xvfb-run --server-num=99 phpunit --group Admin www/test/phpunit/BaseFunctionalCase.php

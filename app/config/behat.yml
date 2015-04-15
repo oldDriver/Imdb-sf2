@@ -1,0 +1,14 @@
+default:
+  extensions:
+    Behat\Symfony2Extension:
+#      mink_driver: true
+      kernel:
+        env: test
+        debug: true
+    Behat\MinkExtension:
+      base_url: 'http://sf2.imdb.local/app_test.php/'
+      default_session: symfony2
+      javascript_session: selenium
+      selenium:
+        host: 127.0.0.1
+        port: 4444
