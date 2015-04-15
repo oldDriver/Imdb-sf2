@@ -6,7 +6,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity
- * @ORM\Entity(repositoryClass="AppBundle\Entity\GenreRepository")
+ * @ORM\Entity(repositoryClass="AppBundle\Entity\JobRepository")
  * @ORM\Table(name="job")
  */
 class Job

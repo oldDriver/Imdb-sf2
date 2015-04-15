@@ -5,5 +5,32 @@
 {% endblock %}
 
 {% block content %}
-
+    <table>
+        <thead>
+            <tr>
+                <th>Bad</th>
+                <th>Right</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+             <td>
+    {% for person in personsBad %}
+        <h4>{{ person.name }}</h4>
+        {% for job in person.jobs %}
+            {{ job.job }}
+        {% endfor %}
+    {% endfor %}
+    </td>
+    <td>
+    {% for person in personsRight %}
+        <h4>{{ person.name }}</h4>
+        {% for job in person.jobs %}
+            {{ job.job }}
+        {% endfor %}
+    {% endfor %}
+    </td>
+        </tr>
+    </tbody>
+    <table>
 {% endblock %}

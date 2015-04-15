@@ -16,6 +16,8 @@ use AppBundle\Form\PersonImportType;
 use AppBundle\Form\ImdbPersonType;
 use AppBundle\Entity\ImdbPerson;
 
+use Doctrine\ORM\Query as Query;
+
 class FrontendController extends Controller
 {
     /**
@@ -114,8 +116,14 @@ class FrontendController extends Controller
     public function personViewAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $person = $em->getRepository('AppBundle:Person')->findOneBy(array('id' => $id));
-        return $this->render('frontend/person_view.html.twig', array('person' => $person));
+        $person = $em->getRepository('AppBundle:Person')->getDetails($id);
+        return $this->render(
+            'frontend/person_view.html.twig',
+            array(
+                'person' => $person
+                
+            )
+        );
     }
 
     /**
@@ -128,7 +136,7 @@ class FrontendController extends Controller
         return $this->render(
             'frontend/job_list.html.twig',
             array(
-                'jobs' => $repo->findBy(array(), array('job' => 'ASC'))
+                'jobs' => $repo->listJobsAsc()
             )
         );
     }
@@ -180,20 +188,48 @@ class FrontendController extends Controller
      */
     public function doctrineAction()
     {
+        /**
+         * This is not a good idea to create queries in action. For this repository is good place
+         * But this action is test action
+         */
         $em = $this->getDoctrine()->getEntityManager();
         /**
          * 1. Always write a DQL statement for querying your object models
          */
+        // this is for initially developing
         $jobs = $em->getRepository('AppBundle:Job')->findAll();
+        // this is right way
+        $jobs = $em->getRepository('AppBundle:Job')->listJobs();
+        /**
+         * 2. Beware of lazy loading when querying entities with associations
+         */
+        // this is no right way to show persons with jobs (for eaxample)
+        $personsBad = $em->getRepository('AppBundle:Person')->findBy(array(), null, 10, 0);
+        // right way
+        $qb = $em->createQueryBuilder();
+        $qb->select('Person', 'Job')->from('AppBundle:Person', 'Person')->setFirstResult(0)->setMaxResults(10)->leftJoin('Person.jobs', 'Job')->groupBy('Person.id')->addGroupBy('Job.id');
+        //$qb->select('Person')->from('AppBundle:Person', 'Person')->setFirstResult(0)->setMaxResults(10);
+        $query = $qb->getQuery();
         
+        $personsRight = $query->getResult(Query::HYDRATE_ARRAY);
+        /**
+         * 3. Use array hydration for read only actions
+         */
         
+        /**
+         * 4. By default Doctrine will fetch all of the properties for a given entity
+         */
         
+        /**
+         * 5. Use prepared statements
+         */
         
-        $persons = $em->getRepository('AppBundle:Person')->testSingle();
+        //$persons = $em->getRepository('AppBundle:Person')->testSingle();
         return $this->render(
             'frontend/doctrine.html.twig',
             array(
-                
+                'personsBad' => $personsBad,
+                'personsRight' => $personsRight
             )
         );
     }

@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\Query;
+use AppBundle\AppBundle;
 
 /**
  * PersonRepository
@@ -26,16 +28,51 @@ class PersonRepository extends EntityRepository
          * Create query
         */
         $qb
-        ->select('Person')
+        ->select('partial Person.{id, name}')
         ->from('AppBundle:Person', 'Person')
         ->where(
             $qb->expr()
             ->like('Person.name', ':name'))
             ->setParameter('name', $name)
         ;
+        $dql = $qb->getDql();
+        //echo $dql;
         $query = $qb->getQuery();
-    
+        /**
+         * Result
+         */
         return $query->getResult();
     }
-    
+
+    public function testJoin($name = 'A')
+    {
+        /**
+         * Entity Manager
+         */
+        $em = $this->getEntityManager();
+        /**
+         * Query Builder
+         */
+        $qb = $em->createQueryBuilder();
+        
+        
+    }
+
+    public function getDetails($id)
+    {
+        $em = $this->getEntityManager();
+        $query = $em->createQuery('
+            SELECT
+                p, pj, r, m, i, mj
+            FROM AppBundle:Person p
+            LEFT JOIN p.jobs pj
+            LEFT JOIN p.refs r
+            JOIN r.movie m
+            LEFT JOIN r.job mj
+            JOIN p.imdbIds i
+            WHERE p.id = :id
+        ');
+        $query->setParameter('id', $id);
+        return $query->getOneOrNullResult(Query::HYDRATE_ARRAY);
+    }
 }
