@@ -59,8 +59,13 @@ class FrontendController extends Controller
     public function movieViewAction($id)
     {
         $em = $this->getDoctrine()->getEntityManager();
-        $movie = $em->getRepository('AppBundle:Movie')->findOneBy(array('id' => $id));
-        return $this->render('frontend/movie_view.html.twig', array('movie' => $movie));
+        $movie = $em->getRepository('AppBundle:Movie')->getDetails($id);
+        return $this->render(
+            'frontend/movie_view.html.twig',
+            array(
+                'movie' => $movie
+            )
+        );
     }
 
     /**
